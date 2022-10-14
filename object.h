@@ -35,7 +35,7 @@ void obj_Init(object_t *const self);
  *
  * @param self
  */
-void obj_Print(object_t *const self);
+uint8_t obj_Print(object_t *const self);
 
 /**
  * @brief
