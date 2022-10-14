@@ -9,6 +9,7 @@ set(CMAKE_C_CLANG_TYDY clang-tidy; -header-filter=.; -checks=*, -llvmlibc-restri
 add_executable(${PROJECT_NAME} "printable.c" "object.c" "main.c")
 
 if(ENABLE_TESTING)
+  enable_testing()
   add_subdirectory(tests)
 endif(ENABLE_TESTING)
 
