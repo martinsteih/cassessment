@@ -14,6 +14,11 @@ typedef struct object_t {
   uint8_t _some_int;
 } object_t;
 
+/**
+ * @brief Macro to instantiate an object of object_t without forgetting to call
+ * obj_Init
+ *
+ */
 #define OBJECT(_name_) \
   object_t _name_;     \
   obj_Init(&_name_)
