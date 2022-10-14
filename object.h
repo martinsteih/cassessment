@@ -3,13 +3,20 @@
 
 #include <stdint.h>
 
+#include "printable.h"
+
 /**
  * @brief
  *
  */
 typedef struct object_t {
+  printable_t printable;
   uint8_t _some_int;
 } object_t;
+
+#define OBJECT(_name_) \
+  object_t _name_;     \
+  obj_Init(&_name_)
 
 /**
  * @brief

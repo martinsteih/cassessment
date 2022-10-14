@@ -6,7 +6,7 @@ option(ENABLE_TESTING "Enable Unit Tests" ON)
 
 set(CMAKE_C_CLANG_TYDY clang-tidy; -header-filter=.; -checks=*, -llvmlibc-restrict-system-libc-header,-llvm-header-guard;)
 
-add_executable(${PROJECT_NAME} "object.c" "main.c")
+add_executable(${PROJECT_NAME} "printable.c" "object.c" "main.c")
 
 if(ENABLE_TESTING)
   add_subdirectory(tests)
