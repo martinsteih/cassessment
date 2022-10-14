@@ -8,8 +8,8 @@ struct object_vtable {
 };
 
 void obj_Init(object_t *const self) {
-  static struct object_vtable vtable = {.Print = obj_Print,
-                                        .Destroy = obj_Destroy};
+  static const struct object_vtable vtable = {.Print = obj_Print,
+                                              .Destroy = obj_Destroy};
   self->printable.vtable = (struct printable_vtable_t *)(&vtable);
   self->_some_int = 0;
 }

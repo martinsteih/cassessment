@@ -5,7 +5,7 @@
 struct printable_vtable_t;
 
 typedef struct printable_t {
-  struct printable_vtable_t *vtable;
+  const struct printable_vtable_t *vtable;
 } printable_t;
 
 uint8_t printable_Print(const printable_t *const self);
