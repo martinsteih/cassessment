@@ -95,7 +95,12 @@ void motor_event_move(motor_t *const self, void *const pData) {
                     transitions[self->_sm_current_state._current], pData);
 }
 
-void motor_event_stop(motor_t *const self) {}
+void motor_event_stop(motor_t *const self) {
+  static const EState transitions[] = {IDLE, IDLE, IMPOSSIBLE};
+  sm_external_event((sm_motor_t *const)&(self->_sm_current_state),
+                    (sm_motor_const_t *const)&(self->_sm_constants),
+                    transitions[self->_sm_current_state._current], NULL);
+}
 
 void motor_event_quit_error(motor_t *const self) {}
 
@@ -119,17 +124,26 @@ void motor_move(sm_motor_t *const self, void *const pData) {
   printf("moving\n");
 }
 
+void motor_idle(sm_motor_t *const self, void *const pData) {
+  printf("stoped\n");
+}
+
+void motor_error(sm_motor_t *const self, void *const pData) {
+  printf("error\n");
+}
+
 int main(int argc, char **argv) {
   OBJECT(obj);
   printable_Print((printable_t *const)(&obj));
   printable_Destroy((printable_t *const)(&obj));
 
   motor_t motor = {._sm_constants = {MAX_STATES,
-                                     {{NULL, NULL, NULL, NULL},
+                                     {{motor_idle, NULL, NULL, NULL},
                                       {motor_move, NULL, NULL, NULL},
-                                      {NULL, NULL, NULL, NULL}}}};
+                                      {motor_error, NULL, NULL, NULL}}}};
   motor_init(&motor);
   motor_data_t *const setpoints = calloc(sizeof(motor_data_t), 1);
   motor_event_move((motor_t *const)&(motor), (void *const)(setpoints));
+  motor_event_stop((motor_t *const)&(motor));
   return 0;
 }
